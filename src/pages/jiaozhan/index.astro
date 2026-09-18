@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+
+const chapters = await getCollection("jiaozhan");
+
+chapters.sort((a, b) => a.data.order - b.data.order);
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>《教战初集》</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>《教战初集》</h1>
+
+      <p>一个人约二十年思维流动之复现与研究</p>
+
+      <h2>目录</h2>
+
+      <ul>
+        {
+          chapters.map((chapter) => (
+            <li>
+              <a href={`/jiaozhan/${chapter.id}/`}>
+                {chapter.data.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
